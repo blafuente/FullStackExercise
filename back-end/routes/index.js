@@ -15,7 +15,7 @@ router.post('/addTask',(req, res)=>{
   const taskName = req.body.taskName;
   const taskDate = req.body.taskDate;
   const insertQuery = `INSERT INTO task(taskName, taskDate)
-  VALUES (?, ?)`;
+    VALUES (?, ?)`;
   connection.query(insertQuery,[taskName,taskDate],(error, results)=>{
     if(error){throw error};
     const getTasksQuery = `SELECT * FROM task`;
@@ -25,6 +25,14 @@ router.post('/addTask',(req, res)=>{
     })
   })
   // res.json({taskName, taskDate})
+})
+
+router.get('/getTasks',(req,res)=>{
+  const getTasksQuery = `SELECT * FROM task`;
+  connection.query(getTasksQuery,(error2,results2)=>{
+    if(error2){throw error2};
+    res.json(results2)
+  })
 })
 
 module.exports = router;
